@@ -15,9 +15,16 @@ namespace MusicStoreTutorial.Controllers
         private MusicDBContext db = new MusicDBContext();
 
         // GET: Musics
-        public ActionResult Index()
+        public ActionResult Index(string searchCriteria)
         {
-            return View(db.Musics.ToList());
+            var musics = from m in db.Musics select m;
+
+            if (!string.IsNullOrEmpty(searchCriteria))
+            {
+                musics = musics.Where(s => s.Title.Contains(searchCriteria));
+            }
+
+            return View(musics);
         }
 
         // GET: Musics/Details/5
