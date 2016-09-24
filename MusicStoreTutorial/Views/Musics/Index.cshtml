@@ -11,9 +11,12 @@
     
     @using (Html.BeginForm("Index","Musics",FormMethod.Get))
     {
-        <p> Title: @Html.TextBox("searchCriteria") <br/>
-        <input type="submit" value="filter"/>    
-    </p>
+        <p>
+            
+            Title: @Html.TextBox("searchCriteria") <br/>
+            Genre: @Html.DropDownList("musicGenre", "All")
+            <input type="submit" value="filter"/>
+        </p>
     }
 </p>
 <table class="table">

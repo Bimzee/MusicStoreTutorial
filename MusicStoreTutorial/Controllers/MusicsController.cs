@@ -15,13 +15,26 @@ namespace MusicStoreTutorial.Controllers
         private MusicDBContext db = new MusicDBContext();
 
         // GET: Musics
-        public ActionResult Index(string searchCriteria)
+        public ActionResult Index(string genere, string searchCriteria)
         {
+            var GenreList = new List<string>();
+
+            var GenreQry = from d in db.Musics orderby d.Genre select d.Genre;
+
+            GenreList.AddRange(GenreQry.Distinct());
+
+            ViewBag.musicGenre = new SelectList(GenreList);
+
             var musics = from m in db.Musics select m;
 
             if (!string.IsNullOrEmpty(searchCriteria))
             {
                 musics = musics.Where(s => s.Title.Contains(searchCriteria));
+            }
+
+            if (!string.IsNullOrEmpty(genere))
+            {
+                musics = musics.Where(x => x.Genre == genere);
             }
 
             return View(musics);
