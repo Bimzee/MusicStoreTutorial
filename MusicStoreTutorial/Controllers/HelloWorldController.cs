@@ -9,16 +9,17 @@ namespace MusicStoreTutorial.Controllers
     public class HelloWorldController : Controller
     {
         // GET: HelloWorld
-        public String Index()
+        public ActionResult Index()
         {
-            return "This is my <b>Default</b> action";
+            return View();
         }
 
-        public string Welcome(string name, int numTimes = 1)
+        public ActionResult Welcome(string name, int id = 1)
         {
-            //return HttpUtility.HtmlEncode("Hello " + name + " ID: " + ID);
-            return HttpUtility.HtmlEncode("Hello " + name + " \n Num Time is:" + numTimes);
-            //return "This is the Welcome Action";
+            ViewBag.Message = "Hello " + name;
+            ViewBag.NumTimes = id;
+
+            return View();
         }
 
     }
